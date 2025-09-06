@@ -1,0 +1,38 @@
+[
+    {
+        "model": "core.Method",
+        "pk": 1,
+        "fields": {
+            "name": "GET",
+            "created_at": "2025-08-21T00:00:00Z",
+            "updated_at": "2025-08-21T00:00:00Z"
+        }
+    },
+    {
+        "model": "core.Method",
+        "pk": 2,
+        "fields": {
+            "name": "POST",
+            "created_at": "2025-08-21T00:00:00Z",
+            "updated_at": "2025-08-21T00:00:00Z"
+        }
+    },
+    {
+        "model": "core.Method",
+        "pk": 3,
+        "fields": {
+            "name": "PUT",
+            "created_at": "2025-08-21T00:00:00Z",
+            "updated_at": "2025-08-21T00:00:00Z"
+        }
+    },
+    {
+        "model": "core.Method",
+        "pk": 4,
+        "fields": {
+            "name": "DELETE",
+            "created_at": "2025-08-21T00:00:00Z",
+            "updated_at": "2025-08-21T00:00:00Z"
+        }
+    }
+]
