@@ -144,9 +144,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'America/Mexico_City'
+TIME_ZONE = "America/Mexico_City"
 
 USE_I18N = True
 
@@ -166,62 +166,46 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Directus Hub",
     "welcome_sign": "Welcome to Directus Hub",
     "copyright": "Powered by Dari Developer / Smooth Software Solutions",
-
     # Media
     "site_logo": "core/imgs/favicon.ico",
     "login_logo": "core/imgs/logo.webp",
     "login_logo_dark": "core/imgs/logo.webp",
     "site_logo_classes": "",
     "site_icon": "core/imgs/favicon.ico",
-    
     # Search model in header
     "search_model": [],
-
     # Field name on user model that contains avatar
     # ImageField/URLField/Charfield or a callable that receives the user
     "user_avatar": None,
-
     ############
     # Top Menu #
     ############
-
     # Links to put along the top menu
     "topmenu_links": [
         # {"name": "Landing", "url": LANDING_HOST},
     ],
-
     #############
     # User Menu #
     #############
-
     # Additional links to include in the user menu on the top right
     # ("app" url type is not allowed)
     "usermenu_links": [
         # {"model": "auth.user"}
     ],
-
     #############
     # Side Menu #
     #############
-
     # Whether to display the side menu
     "show_sidebar": True,
-
     # Whether to aut expand the menu
     "navigation_expanded": True,
-
     # Hide these apps when generating side menu e.g (auth)
     "hide_apps": [],
-
     # Hide these models when generating side menu (e.g auth.user)
-    "hide_models": [
-    ],
-
+    "hide_models": [],
     # List of apps (and/or models) to base side menu ordering off of
     # (does not need to contain all apps/models)
-    "order_with_respect_to": [
-    ],
-
+    "order_with_respect_to": [],
     # Custom links to append to app groups, keyed on app name
     "custom_links": {
         # "books": [{
@@ -231,7 +215,6 @@ JAZZMIN_SETTINGS = {
         #     "permissions": ["books.view_book"]
         # }]
     },
-
     # Custom icons for side menu apps/models
     # See https://fontawesome.com/icons?d=gallery&m=free
     # for the full list of 5.13.0 free icon classes
@@ -243,13 +226,11 @@ JAZZMIN_SETTINGS = {
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",
     "default_icon_children": "fas fa-circle",
-
     #################
     # Related Modal #
     #################
     # Use modals instead of popups
     "related_modal_active": False,
-
     #############
     # UI Tweaks #
     #############
@@ -260,8 +241,7 @@ JAZZMIN_SETTINGS = {
     # (use custom_css to supply font otherwise)
     "use_google_fonts_cdn": True,
     # Whether to show the UI customizer on the sidebar
-    "show_ui_builder": False,
-
+    "show_ui_builder": True,
     ###############
     # Change view #
     ###############
@@ -279,66 +259,97 @@ JAZZMIN_SETTINGS = {
     # },
 }
 
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": True,
+    "brand_small_text": False,
+    "brand_colour": False,
+    "accent": "accent-primary",
+    "navbar": "navbar-white navbar-light",
+    "no_navbar_border": True,
+    "navbar_fixed": False,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": True,
+    "sidebar": "sidebar-dark-primary",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": False,
+    "sidebar_nav_compact_style": True,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": True,
+    "theme": "litera",
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-outline-primary",
+        "secondary": "btn-outline-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success",
+    },
+    "actions_sticky_top": False,
+}
+
 
 # Cors
-if os.getenv('CORS_ALLOWED_ORIGINS') != 'None':
-    CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS').split(',')
+if os.getenv("CORS_ALLOWED_ORIGINS") != "None":
+    CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS").split(",")
 
-if os.getenv('CSRF_TRUSTED_ORIGINS') != 'None':
-    CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split(',')
+if os.getenv("CSRF_TRUSTED_ORIGINS") != "None":
+    CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS").split(",")
 
 
 # Storage settings
 if STORAGE_AWS:
     # aws settings
-    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+    AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
     AWS_DEFAULT_ACL = None
-    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+    AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
 
     # s3 static settings
-    STATIC_LOCATION = 'static'
-    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
-    STATICFILES_STORAGE = 'project.storage_backends.StaticStorage'
-    
+    STATIC_LOCATION = "static"
+    STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/"
+    STATICFILES_STORAGE = "project.storage_backends.StaticStorage"
+
     # s3 public media settings
-    PUBLIC_MEDIA_LOCATION = 'media'
-    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
-    DEFAULT_FILE_STORAGE = 'project.storage_backends.PublicMediaStorage'
+    PUBLIC_MEDIA_LOCATION = "media"
+    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/"
+    DEFAULT_FILE_STORAGE = "project.storage_backends.PublicMediaStorage"
 
     # s3 private media settings
-    PRIVATE_MEDIA_LOCATION = 'private'
-    PRIVATE_FILE_STORAGE = 'project.storage_backends.PrivateMediaStorage'
-    
+    PRIVATE_MEDIA_LOCATION = "private"
+    PRIVATE_FILE_STORAGE = "project.storage_backends.PrivateMediaStorage"
+
     # Disable Django's own staticfiles handling in favour of WhiteNoise
     # for greater consistency between gunicorn and
     STATIC_ROOT = None
     MEDIA_ROOT = None
 else:
     # Local development (Windows or local server)
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-    
+    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
     # Static files (CSS, JavaScript, Images)
-    STATIC_URL = '/static/'
-    MEDIA_URL = '/media/'
-    
+    STATIC_URL = "/static/"
+    MEDIA_URL = "/media/"
+
 
 # Setup drf
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     # DEBUG
-    'PAGE_SIZE': PAGE_SIZE,
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+    "PAGE_SIZE": PAGE_SIZE,
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
     ),
-    'EXCEPTION_HANDLER': 'utils.handlers.custom_exception_handler'
+    "EXCEPTION_HANDLER": "utils.handlers.custom_exception_handler",
 }
 
 # Global datetime format
