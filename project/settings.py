@@ -205,7 +205,12 @@ JAZZMIN_SETTINGS = {
     "hide_models": [],
     # List of apps (and/or models) to base side menu ordering off of
     # (does not need to contain all apps/models)
-    "order_with_respect_to": [],
+    "order_with_respect_to": [
+        "core",
+        "core.Method",
+        "core.Project",
+        "core.Endpoint",
+    ],
     # Custom links to append to app groups, keyed on app name
     "custom_links": {
         # "books": [{
@@ -222,6 +227,12 @@ JAZZMIN_SETTINGS = {
         "auth": "fas fa-users-cog",
         "auth.user": "fas fa-user",
         "auth.Group": "fas fa-users",
+        
+        # Core app
+        "core.Project": "fas fa-project-diagram",
+        "core.Method": "fas fa-code",
+        "core.Endpoint": "fas fa-route",
+        
     },
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",
