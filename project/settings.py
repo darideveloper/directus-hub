@@ -21,6 +21,13 @@ STORAGE_AWS = os.environ.get("STORAGE_AWS") == "True"
 HOST = os.getenv("HOST")
 TEST_HEADLESS = os.getenv("TEST_HEADLESS", "False") == "True"
 PAGE_SIZE = int(os.getenv("PAGE_SIZE", 10))
+DIRECTUS_DOCS = os.getenv("DIRECTUS_DOCS")
+DIRECTUS_DEFAULT_PROJECTS_BASE = os.getenv("DIRECTUS_DEFAULT_PROJECTS_BASE")
+
+# test env variables
+DIRECTUS_TEST_PROJECT_URL = os.getenv("DIRECTUS_TEST_PROJECT_URL")
+DIRECTUS_TEST_PROJECT_NAME = os.getenv("DIRECTUS_TEST_PROJECT_NAME")
+DIRECTUS_TOKEN_TOKEN = os.getenv("DIRECTUS_TOKEN_TOKEN")
 
 print(f"DEBUG: {DEBUG}")
 print(f"STORAGE_AWS: {STORAGE_AWS}")
@@ -227,12 +234,10 @@ JAZZMIN_SETTINGS = {
         "auth": "fas fa-users-cog",
         "auth.user": "fas fa-user",
         "auth.Group": "fas fa-users",
-        
         # Core app
         "core.Project": "fas fa-project-diagram",
         "core.Method": "fas fa-code",
         "core.Endpoint": "fas fa-route",
-        
     },
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",
