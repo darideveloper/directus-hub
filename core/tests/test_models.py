@@ -38,11 +38,17 @@ class ProjectTestCase(TestCoreModelBase):
 
     def test_save_endpoint_base_auto_set(self):
         """Test that the endpoint base is auto set when the project is saved"""
-        
+
         project_base_url = settings.DIRECTUS_DEFAULT_PROJECTS_BASE.replace(
-            "{project}",
-            settings.DIRECTUS_TEST_PROJECT_NAME.lower()
+            "{project}", settings.DIRECTUS_TEST_PROJECT_NAME.lower()
         )
 
         self.assertIsNotNone(self.project.endpoint_base)
         self.assertEqual(self.project.endpoint_base, project_base_url)
+
+    def test_save_docs_server_domain(self):
+        """Test that the server domain is added to the docs"""
+        self.project.save()
+        self.assertEqual(
+            self.project.docs["servers"][0]["url"].startswith("https://"), True
+        )

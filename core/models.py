@@ -42,6 +42,9 @@ class Project(models.Model):
                 if "/items/" in path:
                     clean_paths[path] = value
             data["paths"] = clean_paths
+            
+        # Fix servder domain (add https://)
+        data["servers"] = [{"url": "https://" + data["servers"][0]["url"]}]
 
         return data
 
