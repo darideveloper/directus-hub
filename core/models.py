@@ -51,7 +51,6 @@ class Project(models.Model):
     def __get_default_endpoint_base(self):
         endpoint_base = settings.DIRECTUS_DEFAULT_PROJECTS_BASE
         endpoint_base = endpoint_base.replace("{project}", self.name.lower())
-        input(endpoint_base)
         return endpoint_base
 
     def save(self, *args, **kwargs):
