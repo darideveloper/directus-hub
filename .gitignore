@@ -8,7 +8,7 @@ __pycache__/
 *pyc
 temp.*
 *temp
-*temp*
+*temp.*
 
 .vscode/
 
