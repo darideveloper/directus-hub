@@ -5,7 +5,7 @@
 #
 
 # Use Python 3.12 slim image
-FROM mcr.microsoft.com/playwright/python:v1.54.0-noble
+FROM python:3.12-slim
 
 # ENV variables
 
@@ -75,6 +75,10 @@ WORKDIR /app
 
 # Copy the current directory contents into the container
 COPY . /app/
+
+# Ensure proper permissions
+RUN chmod -R 755 /app
+RUN find /app -name "*.html" -exec chmod 644 {} \;
 
 # Install system dependencies (e.g., for PostgreSQL support)
 RUN apt-get update && apt-get install -y \
