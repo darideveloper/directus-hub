@@ -1,6 +1,7 @@
 import json
 
 from django.conf import settings
+from django.core.management import call_command
 
 from core.tests_base.test_models import TestCoreModelBase
 
@@ -10,6 +11,9 @@ class ProjectJsonViewTestCase(TestCoreModelBase):
     
     def setUp(self):
         super().setUp()
+        
+        # Load fixtures
+        call_command("apps_loaddata")
         
         # Create initial data
         self.project = self.create_project(
@@ -35,6 +39,9 @@ class ProjectSwaggerDocsViewTestCase(TestCoreModelBase):
     
     def setUp(self):
         super().setUp()
+        
+        # Load fixtures
+        call_command("apps_loaddata")
         
         # Create initial data
         self.project = self.create_project(

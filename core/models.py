@@ -42,7 +42,7 @@ class Project(models.Model):
                 if "/items/" in path or "/assets/" in path:
                     clean_paths[path] = value
             data["paths"] = clean_paths
-            
+
         # Fix servder domain (add https://)
         data["servers"] = [{"url": "https://" + data["servers"][0]["url"]}]
 
@@ -53,6 +53,22 @@ class Project(models.Model):
         endpoint_base = endpoint_base.replace("{project}", self.name.lower())
         return endpoint_base
 
+    def __create_endpoints(self, paths: dict):
+        """Create an endpoint for a given path and value
+
+        Args:
+            paths (dict): The paths of the endpoints
+        """
+        get_method = Method.objects.get(name="GET")
+        for path, value in paths.items():
+            endpoint, already_exists = Endpoint.objects.get_or_create(
+                project=self,
+                name=path,
+                endpoint=path,
+            )
+            if not already_exists:
+                endpoint.methods.add(get_method)
+
     def save(self, *args, **kwargs):
         # Auto set endpoint base
         if not self.endpoint_base:
@@ -61,15 +77,9 @@ class Project(models.Model):
         # refresh docs each time the project is saved
         self.docs = self.__get_docs()
         super().save(*args, **kwargs)
-        
-        # Save each endpoint of the project
-        for path, value in self.docs["paths"].items():
-            Endpoint.objects.create(
-                project=self,
-                name=path,
-                description=value["description"],
-                endpoint=path,
-            )
+
+        # Save each endpoint of the project (by default with GET method)
+        self.__create_endpoints(self.docs["paths"])
 
 
 class Method(models.Model):
@@ -88,7 +98,7 @@ class Method(models.Model):
 class Endpoint(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField(default="")
     endpoint = models.CharField(max_length=255)
     methods = models.ManyToManyField(Method)
     created_at = models.DateTimeField(auto_now_add=True)

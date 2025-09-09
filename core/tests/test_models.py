@@ -1,12 +1,17 @@
-from core.tests_base.test_models import TestCoreModelBase
-
+from django.core.management import call_command
 from django.conf import settings
+
+from core import models
+from core.tests_base.test_models import TestCoreModelBase
 
 
 class ProjectTestCase(TestCoreModelBase):
 
     def setUp(self):
         super().setUp()
+
+        # Load fixtures
+        call_command("apps_loaddata")
 
         # Create initial data
         self.project = self.create_project(
@@ -52,3 +57,20 @@ class ProjectTestCase(TestCoreModelBase):
         self.assertEqual(
             self.project.docs["servers"][0]["url"].startswith("https://"), True
         )
+
+    def test_save_create_endpoints(self):
+        """Test that the endpoints are created when the project is saved"""
+        # Validate endpoints of project already saved
+        endpoints = models.Endpoint.objects.filter(project=self.project)
+        self.assertEqual(endpoints.count(), len(self.project.docs["paths"]))
+
+    def test_save_create_endpoints_not_duplicate(self):
+        """Test that the endpoints are not duplicated when the project is saved"""
+        # Validate endpoints of project already saved
+        endpoints = models.Endpoint.objects.filter(project=self.project)
+        self.assertEqual(endpoints.count(), len(self.project.docs["paths"]))
+
+        # Save project again
+        self.project.save()
+        endpoints = models.Endpoint.objects.filter(project=self.project)
+        self.assertEqual(endpoints.count(), len(self.project.docs["paths"]))
