@@ -10,8 +10,8 @@ class Project(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     endpoint_base = models.CharField(max_length=255, null=True, blank=True)
-    docs_save_only_items = models.BooleanField(
-        default=True, help_text="Only save '/items' paths from the docs"
+    docs_save_only_items_assets = models.BooleanField(
+        default=True, help_text="Only save '/items' and '/assets' paths from the docs"
     )
     docs = models.JSONField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -35,11 +35,11 @@ class Project(models.Model):
 
         # Remove unrequired paths
         data = response.json()
-        if self.docs_save_only_items:
+        if self.docs_save_only_items_assets:
             paths = data["paths"]
             clean_paths = {}
             for path, value in paths.items():
-                if "/items/" in path:
+                if "/items/" in path or "/assets/" in path:
                     clean_paths[path] = value
             data["paths"] = clean_paths
             

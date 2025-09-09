@@ -20,16 +20,16 @@ class ProjectTestCase(TestCoreModelBase):
 
     def test_save_docs_only_items(self):
         """Test that the docs are only items when the project is saved"""
-        self.project.docs_save_only_items = True
+        self.project.docs_save_only_items_assets = True
         self.project.save()
 
         paths = self.project.docs["paths"].keys()
-        paths_items = [path for path in paths if "/items/" in path]
+        paths_items = [path for path in paths if "/items/" or "/assets/" in path]
         self.assertEqual(len(paths_items), len(paths))
 
     def test_save_docs_not_only_items(self):
         """Test that the docs are not only items when the project is saved"""
-        self.project.docs_save_only_items = False
+        self.project.docs_save_only_items_assets = False
         self.project.save()
 
         paths = self.project.docs["paths"].keys()

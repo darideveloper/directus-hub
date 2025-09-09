@@ -25,14 +25,14 @@ class TestCoreModelBase(TestCase):
         self,
         name: str = "Project test {x}",
         endpoint_base: str = "",
-        docs_save_only_items: bool = True,
+        docs_save_only_items_assets: bool = True,
     ):
         """Create a project
 
         Args:
             name (str): The name of the project
             endpoint_base (str): The base endpoint of the project
-            docs_save_only_items (bool): Whether to save only items from the docs
+            docs_save_only_items_assets (bool): Whether to save only items and assets from the docs
 
         Returns:
             core_models.Project: The created project
@@ -45,6 +45,6 @@ class TestCoreModelBase(TestCase):
         project = core_models.Project.objects.create(
             name=name,
             endpoint_base=endpoint_base,
-            docs_save_only_items=docs_save_only_items,
+            docs_save_only_items_assets=docs_save_only_items_assets,
         )
         return project
