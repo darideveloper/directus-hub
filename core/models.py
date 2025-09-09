@@ -61,6 +61,15 @@ class Project(models.Model):
         # refresh docs each time the project is saved
         self.docs = self.__get_docs()
         super().save(*args, **kwargs)
+        
+        # Save each endpoint of the project
+        for path, value in self.docs["paths"].items():
+            Endpoint.objects.create(
+                project=self,
+                name=path,
+                description=value["description"],
+                endpoint=path,
+            )
 
 
 class Method(models.Model):
