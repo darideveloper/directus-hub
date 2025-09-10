@@ -60,10 +60,9 @@ class Project(models.Model):
             paths (dict): The paths of the endpoints
         """
         get_method = Method.objects.get(name="GET")
-        for path, value in paths.items():
+        for path in paths.keys():
             endpoint, created = Endpoint.objects.get_or_create(
                 project=self,
-                name=path,
                 endpoint=path,
             )
             if created:
@@ -97,9 +96,8 @@ class Method(models.Model):
 
 class Endpoint(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-    description = models.TextField(default="")
     endpoint = models.CharField(max_length=255)
+    description = models.TextField(default="")
     methods = models.ManyToManyField(Method)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -1,7 +1,6 @@
 import os
 
 from django.core.management.base import BaseCommand
-from django.core.management import call_command
 
 from core import models
 
@@ -20,4 +19,5 @@ class Command(BaseCommand):
             
             endpoints = models.Endpoint.objects.filter(project=project)
             for endpoint in endpoints:
+                endpoint_url = f"{project.endpoint_base}{endpoint.endpoint}"
                 print(f"Testing endpoint: {endpoint.name}")
