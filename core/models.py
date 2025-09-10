@@ -61,12 +61,12 @@ class Project(models.Model):
         """
         get_method = Method.objects.get(name="GET")
         for path, value in paths.items():
-            endpoint, already_exists = Endpoint.objects.get_or_create(
+            endpoint, created = Endpoint.objects.get_or_create(
                 project=self,
                 name=path,
                 endpoint=path,
             )
-            if not already_exists:
+            if created:
                 endpoint.methods.add(get_method)
 
     def save(self, *args, **kwargs):

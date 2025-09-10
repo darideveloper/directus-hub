@@ -63,6 +63,11 @@ class ProjectTestCase(TestCoreModelBase):
         # Validate endpoints of project already saved
         endpoints = models.Endpoint.objects.filter(project=self.project)
         self.assertEqual(endpoints.count(), len(self.project.docs["paths"]))
+        
+        # Validate get method set
+        for endpoint in endpoints:
+            self.assertEqual(endpoint.methods.count(), 1)
+            self.assertEqual(endpoint.methods.first().name, "GET")
 
     def test_save_create_endpoints_not_duplicate(self):
         """Test that the endpoints are not duplicated when the project is saved"""
@@ -74,3 +79,8 @@ class ProjectTestCase(TestCoreModelBase):
         self.project.save()
         endpoints = models.Endpoint.objects.filter(project=self.project)
         self.assertEqual(endpoints.count(), len(self.project.docs["paths"]))
+        
+        # Validate get method set
+        for endpoint in endpoints:
+            self.assertEqual(endpoint.methods.count(), 1)
+            self.assertEqual(endpoint.methods.first().name, "GET")
