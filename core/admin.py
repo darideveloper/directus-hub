@@ -6,7 +6,7 @@ from core import models
 @admin.register(models.Project)
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ["name", "description", "endpoint_base"]
-    search_fields = ["name", "description", "endpoint_base"]
+    search_fields = ["name", "description", "endpoint_base", "logs"]
     list_filter = ["created_at", "updated_at"]
     ordering = ["name"]
 

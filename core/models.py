@@ -14,6 +14,7 @@ class Project(models.Model):
         default=True, help_text="Only save '/items' and '/assets' paths from the docs"
     )
     docs = models.JSONField(null=True, blank=True)
+    logs = models.TextField(default="")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -97,13 +98,16 @@ class Method(models.Model):
 class Endpoint(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     endpoint = models.CharField(max_length=255)
-    description = models.TextField(default="")
-    methods = models.ManyToManyField(Method)
+    description = models.TextField(default="", blank=True)
+    methods = models.ManyToManyField(Method, blank=True)
+    api_id = models.IntegerField(
+        default=1, help_text="The id to replace in the url api call (if exists)"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return self.endpoint
 
     class Meta:
         verbose_name = "Endpoint"
