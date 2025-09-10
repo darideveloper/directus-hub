@@ -100,8 +100,10 @@ class Endpoint(models.Model):
     endpoint = models.CharField(max_length=255)
     description = models.TextField(default="", blank=True)
     methods = models.ManyToManyField(Method, blank=True)
-    api_id = models.IntegerField(
-        default=1, help_text="The id to replace in the url api call (if exists)"
+    api_id = models.CharField(
+        default="1",
+        max_length=100,
+        help_text="The id to replace in the url api call (if exists)"
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
