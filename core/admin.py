@@ -21,7 +21,7 @@ class MethodAdmin(admin.ModelAdmin):
 
 @admin.register(models.Endpoint)
 class EndpointAdmin(admin.ModelAdmin):
-    list_display = ["endpoint", "description"]
+    list_display = ["endpoint", "api_id", "description"]
     search_fields = ["endpoint", "description"]
     list_filter = ["created_at", "updated_at", "project", "methods"]
     ordering = ["project", "endpoint"]
